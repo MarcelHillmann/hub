@@ -1,6 +1,7 @@
 package github
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/bmizerany/assert"
@@ -53,7 +54,11 @@ func TestBranch_Upstream(t *testing.T) {
 	b := Branch{lp, "refs/remotes/origin/master"}
 	branch, err := b.Upstream()
 	assert.Equal(t, nil, err)
-	assert.T(t, branch != nil)
+	if runtime.GOOS == "windows" {
+		assert.T(t, branch != nil)
+	}else{
+		assert.Equal(t, nil, branch)
+	}
 	assert.Equal(t, "refs/remotes/origin/master", branch.Name)
 	assert.Equal(t, &GitHubRepo{}, branch.Repo)
 }
