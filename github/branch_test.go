@@ -55,12 +55,10 @@ func TestBranch_Upstream(t *testing.T) {
 	branch, err := b.Upstream()
 	if runtime.GOOS == "windows" {
 		assert.Equal(t, nil, err)
-		assert.T(t, branch != nil)
-
 	} else {
 		assert.Equal(t, "Unknown revision or path not in the working tree: master@{upstream}", err.Error())
-		assert.Equal(t, nil, branch)
 	}
+	assert.T(t, branch != nil)
 	assert.Equal(t, "refs/remotes/origin/master", branch.Name)
 	assert.Equal(t, &GitHubRepo{}, branch.Repo)
 }
