@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 source_files() {
   script/build files | grep -vE '^\./(coverage|fixtures|version)/'
