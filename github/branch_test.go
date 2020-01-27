@@ -53,10 +53,12 @@ func TestBranch_Upstream(t *testing.T) {
 	lp, _ := LocalRepo()
 	b := Branch{lp, "refs/remotes/origin/master"}
 	branch, err := b.Upstream()
-	assert.Equal(t, nil, err)
 	if runtime.GOOS == "windows" {
+		assert.Equal(t, "Unknown revision or path not in the working tree: master@{upstream}", err.Error())
 		assert.T(t, branch != nil)
+
 	}else{
+		assert.Equal(t, nil, err)
 		assert.Equal(t, nil, branch)
 	}
 	assert.Equal(t, "refs/remotes/origin/master", branch.Name)
