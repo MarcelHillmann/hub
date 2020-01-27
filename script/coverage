@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 source_files() {
   script/build files | grep -vE '^\./(coverage|fixtures|version)/'
@@ -21,6 +21,7 @@ prepare() {
       import "github.com/github/hub/coverage"
       s/(LiveCoverage[0-9]+)\.Count\[([0-9]+)\][^;]+/coverage.Record(\1, \2)/g
     ' < "$f"~ > "$f"
+    cat "$f"
     rm "$f"~
   done
 
