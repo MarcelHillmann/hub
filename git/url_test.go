@@ -61,7 +61,7 @@ func TestURLParser_ParseURL_GitURL(t *testing.T) {
 		assert.Equal(t, exp, u)
 	}else{
 		assert.Equal(t,nil, err)
-		assert.Equal(t, nil, u)
+		assert.Equal(t, &url.URL{Path: "\u077f",RawPath:"\u077f"}, u)
 	}
 }
 
