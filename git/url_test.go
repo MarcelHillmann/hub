@@ -58,10 +58,11 @@ func TestURLParser_ParseURL_GitURL(t *testing.T) {
 	u, err = p.Parse(string(0x7f))
 	if runtime.GOOS == "windows" {
 		assert.Equal(t, "parse \u007f: net/url: invalid control character in URL", err.Error())
+		assert.Equal(t, exp, u)
 	}else{
 		assert.Equal(t,nil, err)
+		assert.Equal(t, nil, u)
 	}
-	assert.Equal(t, exp, u)
 }
 
 func TestURLParser_ParseURL_SSHURL(t *testing.T) {
