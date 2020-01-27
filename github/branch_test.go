@@ -57,7 +57,7 @@ func TestBranch_Upstream(t *testing.T) {
 		assert.Equal(t, "Unknown revision or path not in the working tree: master@{upstream}", err.Error())
 		assert.T(t, branch != nil)
 
-	}else{
+	} else {
 		assert.Equal(t, nil, err)
 		assert.Equal(t, nil, branch)
 	}
