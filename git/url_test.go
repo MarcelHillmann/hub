@@ -2,6 +2,7 @@ package git
 
 import (
 	"net/url"
+	"runtime"
 	"testing"
 
 	"github.com/bmizerany/assert"
@@ -55,8 +56,13 @@ func TestURLParser_ParseURL_GitURL(t *testing.T) {
 
 	var exp *url.URL
 	u, err = p.Parse(string(0x7f))
-	assert.Equal(t, "parse \u007f: net/url: invalid control character in URL", err.Error())
-	assert.Equal(t, exp, u)
+	if runtime.GOOS == "windows" {
+		assert.Equal(t, "parse \u007f: net/url: invalid control character in URL", err.Error())
+		assert.Equal(t, exp, u)
+	} else {
+		assert.Equal(t, nil, err)
+		assert.Equal(t, &url.URL{Path: "\u007f", RawPath: "\u007f"}, u)
+	}
 }
 
 func TestURLParser_ParseURL_SSHURL(t *testing.T) {
