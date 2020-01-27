@@ -14,4 +14,4 @@ else
   profile="default"
 fi
 
-bin/cucumber -p "$profile" "$@"
+bin/cucumber -f json -o bin/cucumber.json -p "$profile" "$@"
