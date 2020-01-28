@@ -6,6 +6,7 @@ source_files() {
 }
 
 prepare() {
+  set +x
   local changed_files="$(source_files | xargs git diff --name-only --)"
   if [ -n "$changed_files" ]; then
     echo "Aborted: please commit the following files before continuing" >&2
@@ -26,6 +27,7 @@ prepare() {
 
   rm -rf "$HUB_COVERAGE"
   mkdir -p "${HUB_COVERAGE%/*}"
+  set -x
 }
 
 generate() {
