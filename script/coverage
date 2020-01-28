@@ -13,7 +13,6 @@ prepare() {
     exit 1
   fi
 
-  set +x
   local n=0
   for f in $(source_files); do
     go tool cover -mode=set -var="LiveCoverage$((++n))" "$f" > "$f"~
@@ -27,7 +26,6 @@ prepare() {
 
   rm -rf "$HUB_COVERAGE"
   mkdir -p "${HUB_COVERAGE%/*}"
-  set -x
 }
 
 generate() {
@@ -50,7 +48,9 @@ generate() {
 summarize() {
   local total_coverage
   local min_coverage="${1?}"
+  set +x
   total_coverage="$(generate)"
+  set -x
   echo "Code coverage: $total_coverage"
   echo " Min coverage: $min_coverage"
   local tmp="${total_coverage%\%} < $min_coverage"
