@@ -46,6 +46,7 @@ generate() {
 }
 
 summarize() {
+  set -x
   local total_coverage
   local min_coverage="${1?}"
   set +x
@@ -62,8 +63,10 @@ summarize() {
       html_result="${html_result#$PWD/}"
       printf 'Please run `script/test --coverage` locally and open `%s` to analyze the results.\n' "$html_result"
     fi
+    set +x
     return 1
   fi
+  set +x
 }
 
 cmd="${1?}"
