@@ -38,7 +38,7 @@ pipeline {
                                             sh 'make && make test-all'
                                         }
                                     }finally{
-                                        sh(script:'find . -delete',returnStdout: true)
+                                        // sh(script:'find . -delete',returnStdout: true)
                                         currentBuild.result = 'SUCCESS'
                                     }
                                 }
@@ -69,7 +69,7 @@ pipeline {
                                             sh 'make && make test-all'
                                         }
                                     }finally{
-                                        sh(script:'find . -delete',returnStdout: true)
+                                    //    sh(script:'find . -delete',returnStdout: true)
                                     }
                                 }
 
@@ -148,6 +148,6 @@ def runScript(def cucumber=false){
                 cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: 'cucumber.json', jsonReportDirectory: 'bin/', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
             }
         }
-        sh(script:'find . -delete',returnStdout: true)
+        // sh(script:'find . -delete',returnStdout: true)
     }
 }
