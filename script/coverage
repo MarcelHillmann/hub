@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 source_files() {
   script/build files | grep -vE '^\./(coverage|fixtures|version)/'
@@ -53,6 +53,7 @@ summarize() {
   total_coverage="$(generate)"
   echo "Code coverage: $total_coverage"
   echo " Min coverage: $min_coverage"
+  local tmp="${total_coverage%\%} < $min_coverage"
   local result="$(bc <<<"${total_coverage%\%} < $min_coverage")"
   if [ "$result" -eq 1 ]; then
     echo "Error: coverage dropped below the minimum treshold of ${min_coverage}%!"
@@ -69,6 +70,11 @@ cmd="${1?}"
 shift 1
 
 case "$cmd" in
+  summarize )
+    set -x
+    "$cmd" "$@"
+    set +x
+    ;;
   prepare | generate | summarize )
     "$cmd" "$@"
     ;;
