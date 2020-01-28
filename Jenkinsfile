@@ -10,7 +10,7 @@ pipeline {
         // parallelsAlwaysFailFast()
         ansiColor('xterm')
         buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '7')
-        disableConcurrentBuilds()
+        // disableConcurrentBuilds()
         disableResume()
     } // options
     stages {
