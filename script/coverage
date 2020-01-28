@@ -50,6 +50,7 @@ summarize() {
   local min_coverage="${1?}"
   total_coverage="$(generate)"
   echo "Code coverage: $total_coverage"
+  echo " Min coverage: $min_coverage"
   local result="$(bc <<<"${total_coverage%\%} < $min_coverage")"
   if [ "$result" -eq 1 ]; then
     echo "Error: coverage dropped below the minimum treshold of ${min_coverage}%!"
