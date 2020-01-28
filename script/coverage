@@ -6,7 +6,6 @@ source_files() {
 }
 
 prepare() {
-  set +x
   local changed_files="$(source_files | xargs git diff --name-only --)"
   if [ -n "$changed_files" ]; then
     echo "Aborted: please commit the following files before continuing" >&2
@@ -14,6 +13,7 @@ prepare() {
     exit 1
   fi
 
+  set +x
   local n=0
   for f in $(source_files); do
     go tool cover -mode=set -var="LiveCoverage$((++n))" "$f" > "$f"~
