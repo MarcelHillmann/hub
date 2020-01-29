@@ -5,6 +5,8 @@ pipeline {
     agent any
     environment {
         CI=1
+        GOPATH=${WORKSPACE}
+        GOPROXY=https://nexus.mahillmann.de/repository/goproxy/
     }
     options {
         // parallelsAlwaysFailFast()
@@ -27,7 +29,7 @@ pipeline {
                              , submoduleCfg: []
                              , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]
                              ])
-                    withEnv(["CI=","path+go=${tool(name: '1.9', type: 'go')}/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
+                    withEnv(["CI=","path+go=${tool(name: '1.9', type: 'go')}/bin"]) {
                         script {
                             try{
                                 dir('src/github.com/github/hub'){
@@ -56,7 +58,7 @@ pipeline {
                              , submoduleCfg: []
                              , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]
                              ])
-                    withEnv(["path+go=${tool(name: '1.10', type: 'go')}/go/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
+                    withEnv(["path+go=${tool(name: '1.10', type: 'go')}/go/bin"]) {
                         script {
                             try{
                                 dir('src/github.com/github/hub'){
@@ -82,7 +84,7 @@ pipeline {
                              , gitTool: 'Default'
                              , submoduleCfg: []
                              , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]])
-                    withEnv(["path+go=${tool(name: '1.11', type: 'go')}/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
+                    withEnv(["path+go=${tool(name: '1.11', type: 'go')}/bin"]) {
                         script{
                             runScript(false)
                         }
@@ -101,7 +103,7 @@ pipeline {
                              , gitTool: 'Default'
                              , submoduleCfg: []
                              , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]])
-                    withEnv(["path+go=${tool(name: '1.12', type: 'go')}/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
+                    withEnv(["path+go=${tool(name: '1.12', type: 'go')}/bin"]) {
                         script{
                             runScript(false)
                         }
@@ -120,7 +122,7 @@ pipeline {
                              , gitTool: 'Default'
                              , submoduleCfg: []
                              , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]])
-                    withEnv(["path+go=${tool(name: '1.13', type: 'go')}/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
+                    withEnv(["path+go=${tool(name: '1.13', type: 'go')}/bin"]) {
                         script{
                             runScript(true, false)
                         }
