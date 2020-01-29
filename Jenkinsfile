@@ -17,18 +17,16 @@ pipeline {
         stage('go 1.9'){
             steps{
                 node(label: 'docker'){
-                    checkout([
-                              $class: 'GitSCM'
-                            , branches: [[name: '*/master']]
-                            , doGenerateSubmoduleConfigurations: false
-                            , extensions: [ [ $class: 'RelativeTargetDirectory'
-                                            , relativeTargetDir: 'src/github.com/github/hub'
-                                            ]
-                                          ]
-                            , gitTool: 'Default'
-                            , submoduleCfg: []
-                            , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]
-                            ])
+                    checkout([ $class: 'GitSCM'
+                             , branches: [[name: '*/master']]
+                             , doGenerateSubmoduleConfigurations: false
+                             , extensions: [ [ $class: 'RelativeTargetDirectory'
+                                             , relativeTargetDir: 'src/github.com/github/hub' ]
+                                           ]
+                             , gitTool: 'Default'
+                             , submoduleCfg: []
+                             , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]
+                             ])
                     withEnv(["CI=","path+go=${tool(name: '1.9', type: 'go')}/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
                         script {
                             try{
@@ -48,18 +46,16 @@ pipeline {
         stage('go 1.10'){
             steps{
                 node(label: 'docker'){
-                    checkout([
-                              $class: 'GitSCM'
-                            , branches: [[name: '*/master']]
-                            , doGenerateSubmoduleConfigurations: false
-                            , extensions: [ [ $class: 'RelativeTargetDirectory'
-                                            , relativeTargetDir: 'src/github.com/github/hub'
-                                            ]
-                                          ]
-                            , gitTool: 'Default'
-                            , submoduleCfg: []
-                            , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]
-                            ])
+                    checkout([ $class: 'GitSCM'
+                             , branches: [[name: '*/master']]
+                             , doGenerateSubmoduleConfigurations: false
+                             , extensions: [ [ $class: 'RelativeTargetDirectory'
+                                             , relativeTargetDir: 'src/github.com/github/hub' ]
+                                           ]
+                             , gitTool: 'Default'
+                             , submoduleCfg: []
+                             , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]
+                             ])
                     withEnv(["path+go=${tool(name: '1.10', type: 'go')}/go/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
                         script {
                             try{

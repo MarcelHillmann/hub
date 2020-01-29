@@ -29,7 +29,7 @@ done
 
 STATUS=0
 
-trap "exit 1" INT
+trap "echo 'trap'; exit 1" INT
 
 check_formatting() {
   [[ "$(go version)" != *" go1.8."* ]] || return 0
@@ -58,12 +58,16 @@ install_test() {
 [ -z "$HUB_COVERAGE" ] || script/coverage prepare
 script/build
 go test ./... 2>&1 >/dev/null || STATUS="$?"
+echo "1 $STATUS"
 script/ruby-test "$@" || STATUS="$?"
+echo "2 $STATUS"
 [ -z "$HUB_COVERAGE" ] || script/coverage summarize "$min_coverage" || STATUS="$?"
-
+echo "3 $STATUS"
 if [ -n "$CI" ]; then
   check_formatting || STATUS="$?"
+  echo "4 $STATUS"
   install_test || STATUS="$?"
+  echo "5 $STATUS"
 fi
-
+echo "6 $STATUS"
 exit "$STATUS"
