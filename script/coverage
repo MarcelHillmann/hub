@@ -46,12 +46,9 @@ generate() {
 }
 
 summarize() {
-  set -x
   local total_coverage
   local min_coverage="${1?}"
-  set +x
   total_coverage="$(generate)"
-  set -x
   echo "Code coverage: $total_coverage"
   echo " Min coverage: $min_coverage"
   local tmp="${total_coverage%\%} < $min_coverage"
@@ -63,21 +60,14 @@ summarize() {
       html_result="${html_result#$PWD/}"
       printf 'Please run `script/test --coverage` locally and open `%s` to analyze the results.\n' "$html_result"
     fi
-    set +x
     return 1
   fi
-  set +x
 }
 
 cmd="${1?}"
 shift 1
 
 case "$cmd" in
-  summarize )
-    set -x
-    "$cmd" "$@"
-    set +x
-    ;;
   prepare | generate | summarize )
     "$cmd" "$@"
     ;;
