@@ -39,7 +39,7 @@ pipeline {
                                 }
                             }finally{
                                 sh(script:'find . -delete',returnStdout: true)
-                                sh(script:'find /tmp -delete', returnStatus: true)
+                                sh(script:'find /tmp/ -type f -delete', returnStatus: true)
                                 currentBuild.result = 'SUCCESS'
                             }
                         }
@@ -69,7 +69,7 @@ pipeline {
                                 }
                             }finally{
                                 sh(script:'find . -delete',returnStdout: true)
-                                sh(script:'find /tmp -delete', returnStatus: true)
+                                sh(script:'find /tmp/ -type f -delete', returnStatus: true)
                             }
                         }
 
@@ -149,6 +149,6 @@ def runScript(def cucumber=false, def clean = true){
         if( clean ){
             sh(script:'find . -delete',returnStdout: true)
         }
-        sh(script:'find /tmp -delete', returnStatus: true)
+        sh(script:'find /tmp/ -type f -delete', returnStatus: true)
     }
 }
