@@ -34,7 +34,7 @@ pipeline {
                                     sh 'make && make test-all'
                                 }
                             }finally{
-                                // sh(script:'find . -delete',returnStdout: true)
+                                sh(script:'find . -delete',returnStdout: true)
                                 currentBuild.result = 'SUCCESS'
                             }
                         }
@@ -63,7 +63,7 @@ pipeline {
                                     sh 'make && make test-all'
                                 }
                             }finally{
-                            //    sh(script:'find . -delete',returnStdout: true)
+                                sh(script:'find . -delete',returnStdout: true)
                             }
                         }
 
@@ -122,7 +122,7 @@ pipeline {
                              , userRemoteConfigs: [[credentialsId: 'github-com', url: repo]]])
                     withEnv(["path+go=${tool(name: '1.13', type: 'go')}/bin","GOPATH=${WORKSPACE}","GOPROXY=https://nexus.mahillmann.de/repository/goproxy/"]) {
                         script{
-                            runScript(true)
+                            runScript(true, false)
                         }
                     }// withEnv
                 }
@@ -131,7 +131,7 @@ pipeline {
     } // stages
 } // pipeline
 
-def runScript(def cucumber=false){
+def runScript(def cucumber=false, def clean = true){
     try{
         sh 'make && make test-all'
     }finally{
@@ -140,6 +140,8 @@ def runScript(def cucumber=false){
                 cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: 'cucumber.json', jsonReportDirectory: 'bin/', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
             }
         }
-        // sh(script:'find . -delete',returnStdout: true)
+        if( clean ){
+            sh(script:'find . -delete',returnStdout: true)
+        }
     }
 }
