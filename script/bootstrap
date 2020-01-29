@@ -3,8 +3,8 @@ set -e
 
 STATUS=0
 
-{ ruby --version
-  bundle install
+{ ruby --version > /dev/null
+  bundle install > /dev/null
   bundle binstub cucumber --path bin
 } || {
   echo "You need Ruby 1.9 or higher and Bundler to run hub tests" >&2

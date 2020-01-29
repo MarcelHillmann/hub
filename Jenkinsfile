@@ -32,7 +32,6 @@ pipeline {
                         script {
                             try{
                                 dir('src/github.com/github/hub'){
-                                    sh 'go env'
                                     sh 'make && make test-all'
                                 }
                             }finally{
