@@ -18,6 +18,9 @@ pipeline {
         stage('go 1.9'){
             steps{
                 node(label: 'docker'){
+                    script {
+                        sh(script:'find . -delete',returnStdout: true)
+                    }
                     checkout([ $class: 'GitSCM'
                              , branches: [[name: '*/master']]
                              , doGenerateSubmoduleConfigurations: false
@@ -36,6 +39,7 @@ pipeline {
                                 }
                             }finally{
                                 sh(script:'find . -delete',returnStdout: true)
+                                sh(script:'find /tmp -delete', returnStatus: true)
                                 currentBuild.result = 'SUCCESS'
                             }
                         }
@@ -65,6 +69,7 @@ pipeline {
                                 }
                             }finally{
                                 sh(script:'find . -delete',returnStdout: true)
+                                sh(script:'find /tmp -delete', returnStatus: true)
                             }
                         }
 
@@ -144,5 +149,6 @@ def runScript(def cucumber=false, def clean = true){
         if( clean ){
             sh(script:'find . -delete',returnStdout: true)
         }
+        sh(script:'find /tmp -delete', returnStatus: true)
     }
 }
