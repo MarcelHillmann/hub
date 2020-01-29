@@ -73,6 +73,7 @@ func TestNewHttpClient_UnixSocket(t *testing.T) {
 		return
 	}
 	sock := "/tmp/hub-go.sock"
+	defer os.Remove(sock)
 	s := setupTestServer(sock)
 	defer s.Close()
 
