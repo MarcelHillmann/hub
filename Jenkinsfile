@@ -5,8 +5,8 @@ pipeline {
     agent any
     environment {
         CI=1
-        GOPATH=${WORKSPACE}
-        GOPROXY=https://nexus.mahillmann.de/repository/goproxy/
+        GOPATH="${WORKSPACE}"
+        GOPROXY="https://nexus.mahillmann.de/repository/goproxy/"
     }
     options {
         // parallelsAlwaysFailFast()
