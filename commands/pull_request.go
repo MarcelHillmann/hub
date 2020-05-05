@@ -51,7 +51,7 @@ pull-request -i <ISSUE>
 		submitting. This can be used in combination with ''--message'' or ''--file''.
 
 	-i, --issue <ISSUE>
-		Convert <ISSUE> (referenced by its number) to a pull request.
+		ConvertResult <ISSUE> (referenced by its number) to a pull request.
 
 		You can only convert issues authored by you or that which you have admin
 		rights over. In most workflows it is not necessary to convert issues to
